@@ -1,0 +1,9 @@
+metric,method,sigma1,sigma2,d1,d2
+mpiw_90,MC-Dropout,0.0781,0.0771,0.0592,0.1354
+mpiw_90,Temp-Scaled MC-Dropout,0.0547,0.1489,0.1115,0.3421
+mpiw_90,Split Conformal,0.0615,0.3057,0.0956,0.4998
+mpiw_90,Deep Ensemble,0.0264,0.0744,0.0182,0.1247
+rmse,MC-Dropout (mean),0.018,0.091,0.030,0.150
+rmse,Temp-scaled (same),0.018,0.091,0.030,0.150
+rmse,Split conformal (det),0.018,0.091,0.030,0.150
+rmse,Deep ensemble (mean),0.0188,0.0993,0.0304,0.1660

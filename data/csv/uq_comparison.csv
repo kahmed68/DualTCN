@@ -1,0 +1,97 @@
+method,alpha,param,picp,mpiw
+MC-Dropout,0.5,sigma1,0.6884,0.0320
+MC-Dropout,0.5,sigma2,0.4340,0.0316
+MC-Dropout,0.5,d1,0.2914,0.0243
+MC-Dropout,0.5,d2,0.2804,0.0555
+MC-Dropout,0.7,sigma1,0.8346,0.0492
+MC-Dropout,0.7,sigma2,0.5466,0.0486
+MC-Dropout,0.7,d1,0.4118,0.0373
+MC-Dropout,0.7,d2,0.4184,0.0853
+MC-Dropout,0.8,sigma1,0.8928,0.0608
+MC-Dropout,0.8,sigma2,0.6036,0.0601
+MC-Dropout,0.8,d1,0.4924,0.0461
+MC-Dropout,0.8,d2,0.4842,0.1055
+MC-Dropout,0.9,sigma1,0.9444,0.0781
+MC-Dropout,0.9,sigma2,0.6644,0.0771
+MC-Dropout,0.9,d1,0.5958,0.0592
+MC-Dropout,0.9,d2,0.5716,0.1354
+MC-Dropout,0.95,sigma1,0.9666,0.0931
+MC-Dropout,0.95,sigma2,0.7162,0.0919
+MC-Dropout,0.95,d1,0.6838,0.0705
+MC-Dropout,0.95,d2,0.6302,0.1614
+MC-Dropout,0.99,sigma1,0.9896,0.1223
+MC-Dropout,0.99,sigma2,0.7848,0.1208
+MC-Dropout,0.99,d1,0.8270,0.0927
+MC-Dropout,0.99,d2,0.7148,0.2121
+Temp-Scaled MC-Dropout,0.5,sigma1,0.5522,0.0224
+Temp-Scaled MC-Dropout,0.5,sigma2,0.6086,0.0610
+Temp-Scaled MC-Dropout,0.5,d1,0.4882,0.0457
+Temp-Scaled MC-Dropout,0.5,d2,0.5852,0.1403
+Temp-Scaled MC-Dropout,0.7,sigma1,0.7150,0.0344
+Temp-Scaled MC-Dropout,0.7,sigma2,0.7208,0.0938
+Temp-Scaled MC-Dropout,0.7,d1,0.6814,0.0703
+Temp-Scaled MC-Dropout,0.7,d2,0.7208,0.2156
+Temp-Scaled MC-Dropout,0.8,sigma1,0.7874,0.0426
+Temp-Scaled MC-Dropout,0.8,sigma2,0.7752,0.1160
+Temp-Scaled MC-Dropout,0.8,d1,0.7904,0.0869
+Temp-Scaled MC-Dropout,0.8,d2,0.7858,0.2666
+Temp-Scaled MC-Dropout,0.9,sigma1,0.8634,0.0547
+Temp-Scaled MC-Dropout,0.9,sigma2,0.8450,0.1489
+Temp-Scaled MC-Dropout,0.9,d1,0.9048,0.1115
+Temp-Scaled MC-Dropout,0.9,d2,0.8536,0.3421
+Temp-Scaled MC-Dropout,0.95,sigma1,0.9060,0.0651
+Temp-Scaled MC-Dropout,0.95,sigma2,0.8848,0.1774
+Temp-Scaled MC-Dropout,0.95,d1,0.9524,0.1329
+Temp-Scaled MC-Dropout,0.95,d2,0.8922,0.4077
+Temp-Scaled MC-Dropout,0.99,sigma1,0.9562,0.0856
+Temp-Scaled MC-Dropout,0.99,sigma2,0.9404,0.2331
+Temp-Scaled MC-Dropout,0.99,d1,0.9874,0.1746
+Temp-Scaled MC-Dropout,0.99,d2,0.9468,0.5358
+Split Conformal,0.5,sigma1,0.5042,0.0208
+Split Conformal,0.5,sigma2,0.4802,0.0391
+Split Conformal,0.5,d1,0.4886,0.0415
+Split Conformal,0.5,d2,0.4960,0.1033
+Split Conformal,0.7,sigma1,0.7050,0.0327
+Split Conformal,0.7,sigma2,0.6826,0.1043
+Split Conformal,0.7,d1,0.6902,0.0627
+Split Conformal,0.7,d2,0.6968,0.1945
+Split Conformal,0.8,sigma1,0.8070,0.0428
+Split Conformal,0.8,sigma2,0.7926,0.1689
+Split Conformal,0.8,d1,0.7930,0.0751
+Split Conformal,0.8,d2,0.7980,0.2864
+Split Conformal,0.9,sigma1,0.9064,0.0615
+Split Conformal,0.9,sigma2,0.8996,0.3057
+Split Conformal,0.9,d1,0.9018,0.0956
+Split Conformal,0.9,d2,0.9054,0.4998
+Split Conformal,0.95,sigma1,0.9532,0.0813
+Split Conformal,0.95,sigma2,0.9486,0.4519
+Split Conformal,0.95,d1,0.9500,0.1169
+Split Conformal,0.95,d2,0.9568,0.7934
+Split Conformal,0.99,sigma1,0.9926,0.1343
+Split Conformal,0.99,sigma2,0.9890,0.7583
+Split Conformal,0.99,d1,0.9900,0.1614
+Split Conformal,0.99,d2,0.9912,1.2926
+Deep Ensemble,0.5,sigma1,0.2672,0.0108
+Deep Ensemble,0.5,sigma2,0.2136,0.0305
+Deep Ensemble,0.5,d1,0.1488,0.0075
+Deep Ensemble,0.5,d2,0.1398,0.0511
+Deep Ensemble,0.7,sigma1,0.3962,0.0166
+Deep Ensemble,0.7,sigma2,0.3228,0.0469
+Deep Ensemble,0.7,d1,0.2034,0.0115
+Deep Ensemble,0.7,d2,0.2150,0.0786
+Deep Ensemble,0.8,sigma1,0.4820,0.0206
+Deep Ensemble,0.8,sigma2,0.3932,0.0580
+Deep Ensemble,0.8,d1,0.2386,0.0142
+Deep Ensemble,0.8,d2,0.2668,0.0971
+Deep Ensemble,0.9,sigma1,0.5806,0.0264
+Deep Ensemble,0.9,sigma2,0.4796,0.0744
+Deep Ensemble,0.9,d1,0.2776,0.0182
+Deep Ensemble,0.9,d2,0.3616,0.1247
+Deep Ensemble,0.95,sigma1,0.6520,0.0315
+Deep Ensemble,0.95,sigma2,0.5492,0.0886
+Deep Ensemble,0.95,d1,0.3072,0.0217
+Deep Ensemble,0.95,d2,0.4418,0.1486
+Deep Ensemble,0.99,sigma1,0.7636,0.0414
+Deep Ensemble,0.99,sigma2,0.6564,0.1165
+Deep Ensemble,0.99,d1,0.3656,0.0286
+Deep Ensemble,0.99,d2,0.5592,0.1952

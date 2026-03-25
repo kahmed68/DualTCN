@@ -1,0 +1,2 @@
+# Git LFS tracking for model weights
+*.pt filter=lfs diff=lfs merge=lfs -text

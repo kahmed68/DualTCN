@@ -1,0 +1,8 @@
+model,reference,sigma1_true,sigma1_pred,sigma2_true,sigma2_pred,d1_true,d1_pred,d2_true,d2_pred,err_sigma1_pct,err_sigma2_pct,err_d1_pct,err_d2_pct,mape_pct
+Gulf of Mexico — Gemini,Constable & Srnka (2007),3.3,3.2203,0.5,0.5658,100.0,99.54,30.0,32.34,2.42,13.16,0.46,7.80,5.96
+GoM — Resistive target,Key (2009),3.3,3.2607,0.05,0.0795,80.0,78.18,25.0,26.40,1.19,59.10,2.27,5.60,17.04
+Scarborough — Gas field,Key (2012),3.5,3.6945,0.02,0.0062,120.0,114.34,20.0,17.18,5.56,68.97,4.72,14.10,23.34
+North Sea — Shallow water,Constable (2010),4.0,4.8108,0.8,0.8076,60.0,58.31,40.0,44.32,20.27,0.94,2.82,10.79,8.71
+Norwegian margin — Gas hydrate,Constable (2010),3.0,3.2324,0.01,0.0058,90.0,85.29,15.0,14.00,7.75,41.90,5.23,6.68,15.39
+West Africa — Deep water,Key (2012),3.2,3.3703,0.3,0.3639,130.0,127.74,35.0,34.17,5.32,21.30,1.74,2.38,7.69
+Brazil — Pre-salt,Constable (2010),3.5,3.7700,0.005,0.0048,100.0,93.39,10.0,10.97,7.72,3.38,6.61,9.66,6.84
