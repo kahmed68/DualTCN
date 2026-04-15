@@ -90,6 +90,26 @@ DualTCN/
 └── README.md
 ```
 
+## File Naming Convention
+
+The source files use internal development identifiers that map to the paper as follows:
+
+| Internal name | Paper name | Role |
+|---------------|-----------|------|
+| `model_p9d.py` / `LateTimePCRN` | **DualTCN** | Main model (Section 4.3) |
+| `config_v4.py` | --- | Two-layer earth model configuration |
+| `config_v5.py` | --- | Three-layer earth model configuration |
+| `config_p9d.py` | --- | DualTCN training hyperparameters |
+| `model_v3.py` | --- | Shared building blocks (`DilatedResBlock`, `reconstruct_profile`) |
+| `model_v4.py` | --- | Parameter denormalisation (`denormalise_params_v4`) |
+| `model_v5.py` / `DualTCN3Layer` | **DualTCN-3Layer** | Three-layer extension (Section 6.3) |
+| `model_p5a.py` / `TCNEncoder` | P5a (TCN-only) | TCN encoder used by DualTCN |
+| `model_baseline.py` | **PCRN** | Baseline model (Section 3.2) |
+| `dataset_v4*.py` | --- | Two-layer dataset loaders and augmentation variants |
+| `dataset_v5.py` | --- | Three-layer dataset loader |
+| `forward_model_v4.py` | --- | empymod-based forward model (2-layer) |
+| `forward_model_v5.py` | --- | empymod-based forward model (3-layer) |
+
 ## Requirements
 
 ```
