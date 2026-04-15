@@ -2174,9 +2174,11 @@ million synthetic samples, leads to the following conclusions:
   epistemic uncertainty for this problem.
 \end{enumerate}
 
-DualTCN inverts a sample in 3.5\,ms on an A100 GPU, so a
-million-record survey takes under 60\,seconds---enabling real-time
-quality control and first-pass screening for the demonstrated
+DualTCN inverts a sample in 3.5\,ms on an A100 GPU (8.8\,ms on a
+single CPU core without GPU), so a million-record survey takes under
+60\,seconds on GPU or $\sim$30\,minutes on CPU---enabling real-time
+quality control at sea without specialised hardware for the
+demonstrated
 two-layer parameterisation ($\sigma_2$, $d_2$).  We stress that
 this speed advantage is demonstrated for a two-layer isotropic
 subsurface; a three-layer extension
@@ -2268,12 +2270,15 @@ The Scarborough gas-field CSEM data are available at
 A marine TD-CSEM benchmark dataset is available at Zenodo
 (doi:10.5281/zenodo.7198873).
 
-Source code for DualTCN (model definitions, training scripts,
-evaluation pipelines, and configuration files) is available at
-\url{https://github.com/Kahmed68/DualTCN}.  Trained model weights
-for all variants reported in this study (DualTCN, DualTCN-AmpAug,
-DualTCN-Colored, DualTCN-AmpRatio, DualTCN-Weighted,
-DualTCN-RecvBias, DualTCN-3Layer) are included in the repository.
+Source code, training scripts, configuration files, evaluation
+pipelines, result data, and trained model weights for all variants
+reported in this study (DualTCN, DualTCN-AmpAug, DualTCN-Colored,
+DualTCN-AmpRatio, DualTCN-Weighted, DualTCN-RecvBias,
+DualTCN-3Layer) are available in a GitHub repository at
+\url{https://github.com/Kahmed68/DualTCN}.  The repository will be
+made public upon acceptance; a private reviewer-access link is
+available from the corresponding author upon request during the
+review process.
 
 %% ---- References ---------------------------------------------
 \bibliographystyle{IEEEtran}
