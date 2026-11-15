@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the paper and this archived version."
+title: "DualTCN: forward-consistent deep-learning inversion of time-domain marine CSEM data (code, trained networks, sample data)"
+version: "1.1-r1"
+license: MIT
+repository-code: "https://github.com/Kahmed68/DualTCN"
+authors:
+  - family-names: Ahmed
+    given-names: Khaled R.
+    affiliation: "Southern Illinois University Carbondale"
+    orcid: "https://orcid.org/0000-0002-3707-4316"
+  - family-names: Omar
+    given-names: Ghada
+    affiliation: "Southern Illinois University Carbondale"
+    orcid: "https://orcid.org/0009-0002-9961-942X"

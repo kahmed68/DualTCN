@@ -1,0 +1,25 @@
+{
+  "n": 2000,
+  "seed": 12345,
+  "gate": {
+    "spec_rel": 1e-06,
+    "trace_abs": 1e-05,
+    "logamp_abs": 1e-06
+  },
+  "spec_rel_max": 2.81219174224838e-13,
+  "spec_rel_median": 1.7877372706038697e-15,
+  "trace_abs_max": 2.976061197479396e-08,
+  "logamp_abs_max": 5.1514348342607263e-14,
+  "gradcheck": true,
+  "worst_model": 521,
+  "sec_torch_cpu": 52.81,
+  "sec_empymod": 116.5,
+  "PASS": true,
+  "worst_params": {
+    "s1": 0.10613989929034016,
+    "s2": 0.008860073330935232,
+    "d1": 75.27153497825282,
+    "d2": 21.18976567295324,
+    "v0": 89.99956562790891
+  }
+}

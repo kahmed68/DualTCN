@@ -1,0 +1,21 @@
+# One style for all revision figures (R1.12). Okabe-Ito colour-blind-safe palette.
+font.family: serif
+font.serif: DejaVu Serif
+mathtext.fontset: dejavuserif
+font.size: 9
+axes.titlesize: 9
+axes.labelsize: 9
+xtick.labelsize: 8
+ytick.labelsize: 8
+legend.fontsize: 8
+legend.frameon: False
+lines.linewidth: 1.4
+lines.markersize: 3.5
+axes.linewidth: 0.8
+axes.grid: True
+grid.color: 0.88
+grid.linewidth: 0.5
+axes.prop_cycle: cycler('color', ['0072B2', 'D55E00', '009E73', 'CC79A7', 'E69F00', '56B4E9', '000000'])
+savefig.dpi: 300
+savefig.bbox: tight
+figure.dpi: 150
