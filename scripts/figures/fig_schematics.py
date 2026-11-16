@@ -92,8 +92,8 @@ def panel(ax, x0, y0, x1, y1, title, fc, ec, tc, fs=9, dashed=False, title_y=Non
 def fig2():
     """DualTCN architecture in the layout of the original figure, with the corrected architecture."""
     import numpy as np
-    fig, ax = plt.subplots(figsize=(10.5, 6.8))
-    ax.set_xlim(0, 31); ax.set_ylim(0, 20); ax.axis('off')
+    fig, ax = plt.subplots(figsize=(10.5, 8.4))
+    ax.set_xlim(0, 31); ax.set_ylim(-4.75, 20); ax.axis('off')
     FT = ['#E3EEF9', '#D2E4F5', '#BFD8F1', '#A9CAEC', '#8EB8E5', '#6FA3DC']
     LT = ['#E9E2F3', '#DCD1EE', '#CDBFE7', '#BCAADF']
     EDGE = '0.45'
@@ -185,10 +185,27 @@ def fig2():
     arrow(ax, (24.85, 15.6), (26.2, 15.6))
     ax.plot([24.9, 25.65, 25.65], [8.0, 8.0, 15.0], color='0.3', lw=0.8); arrow(ax, (25.65, 15.0), (26.2, 15.0))
     arrow(ax, (28.35, 14.3), (28.35, 11.9)); arrow(ax, (28.35, 7.3), (28.35, 5.15))
+    # ---------------- forward-operator strip (11-16, title "... with a Differentiable Forward Operator")
+    panel(ax, 0.3, -3.2, 30.8, 1.55, 'Differentiable Forward Operator (Section 2.2)', '#F3FAF6', '#93C9AE', '#1D6B47',
+          fs=9, title_y=1.0)
+    yo = -1.0
+    box(ax, 1.85, yo, 2.6, 2.2, 'Observed\ninput $\mathbf{x}$', '0.94', fs=7)
+    box(ax, 6.0, yo, 3.4, 2.2, 'Predicted\nparameters $\hat{\mathbf{p}}$', '#D5EFE3', fs=7)
+    box(ax, 11.4, yo, 5.4, 2.2, 'Layered-earth solution\n(PyTorch, Hankel digital\nfilter, float64)', '#E2F3EA', fs=7)
+    box(ax, 16.85, yo, 3.3, 2.2, 'Simulated\ninput $\hat{\mathbf{x}}$', '0.94', fs=7)
+    box(ax, 21.3, yo, 3.4, 2.2, 'Data misfit\n(trace and\nlog-amplitude)', '#FFF3C4', fs=7)
+    box(ax, 27.55, -0.2, 5.6, 1.3, 'Check of every prediction\n(Sections 3.5 and 3.6)', '#DCEFF6', fs=6.4)
+    box(ax, 27.55, -1.85, 5.6, 1.3, 'Loss $\mathcal{L}_\mathrm{fc}$ of the forward-\nconsistent variant (Section 2.5)',
+        '#FDEBD0', fs=6.4, ec='0.5')
+    arrow(ax, (1.85, 4.35), (1.85, 0.1))
+    arrow(ax, (7.7, yo), (8.7, yo)); arrow(ax, (14.1, yo), (15.2, yo)); arrow(ax, (18.5, yo), (19.6, yo))
+    ax.plot([1.85, 1.85, 21.3], [-2.1, -2.75, -2.75], color='0.3', lw=0.8); arrow(ax, (21.3, -2.75), (21.3, -2.1))
+    ax.plot([23.0, 24.0, 24.0], [yo, yo, -0.2], color='0.3', lw=0.8); arrow(ax, (24.0, -0.2), (24.75, -0.2))
+    ax.plot([24.0, 24.0], [yo, -1.85], color='0.3', lw=0.8, ls='--'); arrow(ax, (24.0, -1.85), (24.75, -1.85), ls='--')
     # ---------------- bottom bar
-    ax.add_patch(FancyBboxPatch((3.0, 0.25), 25.0, 1.15, boxstyle='round,pad=0.02,rounding_size=0.3',
+    ax.add_patch(FancyBboxPatch((3.0, -4.55), 25.0, 1.15, boxstyle='round,pad=0.02,rounding_size=0.3',
                                 fc='#F4F8FC', ec='#C9D9EA', lw=0.8))
-    ax.text(15.5, 0.82, 'DualTCN   |   379,370 parameters   |   1.7 ms per sample on one CPU core (batched inference)',
+    ax.text(15.5, -3.98, 'DualTCN   |   379,370 parameters   |   1.7 ms per sample on one CPU core (batched inference)',
             ha='center', va='center', fontsize=8, color='0.2')
     fig.savefig(os.path.join(OUT, 'fig2_architecture.png')); plt.close(fig)
 

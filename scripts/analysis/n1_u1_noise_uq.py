@@ -39,6 +39,7 @@ from train_v6 import load, ARCHS, NAMES, raw_perturb
 from config_v6 import IN_CHANNELS, N_TIME, N_DEPTH, LATENT_DIM, DROPOUT, TRAIN_SPLIT, VAL_SPLIT, DATA_PATH_V6
 
 dev = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+torch.backends.cudnn.allow_tf32 = False; torch.backends.cuda.matmul.allow_tf32 = False   # 11-16: TF32 convs on A40 shifted d2 R2 by up to 0.01
 os.makedirs(a.out, exist_ok=True); t0 = time.time()
 E, L, S, Pn = load(DATA_PATH_V6, dev)
 if a.subset: E, L, Pn = E[:a.subset], L[:a.subset], Pn[:a.subset]

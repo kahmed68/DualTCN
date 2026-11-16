@@ -51,6 +51,7 @@ def main():
     from scipy.stats import spearmanr
     import forward_torch as ft
     from train_v6 import ARCHS, NAMES, BOUNDS, misfit_terms, make_x
+    torch.backends.cudnn.allow_tf32 = False; torch.backends.cuda.matmul.allow_tf32 = False   # 11-16: TF32 off (A40 TF32 convs shift R2)
     dev = torch.device('cuda' if torch.cuda.is_available() else 'cpu'); t0 = time.time()
     os.makedirs(a.out, exist_ok=True)
     LO, HI = BOUNDS[:, 0].double().numpy(), BOUNDS[:, 1].double().numpy()

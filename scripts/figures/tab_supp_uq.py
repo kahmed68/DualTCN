@@ -1,8 +1,8 @@
 """Supplementary Tables S14/S15: PICP and MPIW of all four parameters at 95% and 68%,
-every noise condition, five interval methods. Source: n1_u1_rn_base.json (3 seeds, raw-noise supervised)."""
+every noise condition, five interval methods. Source: n1_u1_rn_noprof.json (3 seeds, main network; 11-16 Option 1)."""
 import json, sys
 import os
-J = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("DUALTCN_RUNS", "/work/hdd/bgte/kahmed2/DualTCN_runs") + "/analysis/n1_u1/n1_u1_rn_base.json"
+J = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("DUALTCN_RUNS", "/work/hdd/bgte/kahmed2/DualTCN_runs") + "/analysis/n1_u1/n1_u1_rn_noprof.json"   # 11-16 Option 1: main network (contains conformal_trainmix)
 d = json.load(open(J))["conditions"]
 # D5 (11-15): training-noise calibration from the rerun with the same seeds (n1_u1_rn_base_tm.json; all shared
 # entries agree with n1_u1_rn_base.json to <= 0.005)
@@ -27,7 +27,7 @@ for lev, lab, pw in (("0.95", "95", "0.95 for $\\sigma_1$ and $\\sigma_2$ and 0.
     for gk, gtxt, conds in GROUPS:
         out.append("\\begin{table*}[p]\n\\centering")
         if gk == "snr":
-            cap = (f"\\caption{{\\rev{{Coverage (PICP) and mean width (MPIW, normalized units) of the nominal {lab}\\% prediction intervals for all four parameters, {gtxt} (supervised network, noise on the raw transients, 150,000 test samples). MC dropout: 20 passes; Seed spread: Gaussian interval from the mean and standard deviation of the three seeds; Conf. clean: split conformal on the three-seed mean, calibrated on 50,000 clean validation samples; Conf. norm. clean: the same, with residuals scaled by the seed standard deviation; Conf. train. noise: calibrated on validation samples with the noise distribution of the training data, which does not require the noise level of the survey; Conf. matched: calibrated on validation samples with the same noise condition as the test data, which requires the noise level of the survey to be known ($^\\ast$upper reference). Widths are not clipped to $[0,1]$; the central {lab}\\% interval of the prior has a width of {pw}. $^\\dagger$Outside the SNR range of the training data.}}}}")
+            cap = (f"\\caption{{\\rev{{Coverage (PICP) and mean width (MPIW, normalized units) of the nominal {lab}\\% prediction intervals for all four parameters, {gtxt} (main network, 150,000 test samples). MC dropout: 20 passes; Seed spread: Gaussian interval from the mean and standard deviation of the three seeds; Conf. clean: split conformal on the three-seed mean, calibrated on 50,000 clean validation samples; Conf. norm. clean: the same, with residuals scaled by the seed standard deviation; Conf. train. noise: calibrated on validation samples with the noise distribution of the training data, which does not require the noise level of the survey; Conf. matched: calibrated on validation samples with the same noise condition as the test data, which requires the noise level of the survey to be known ($^\\ast$upper reference). Widths are not clipped to $[0,1]$; the central {lab}\\% interval of the prior has a width of {pw}. $^\\dagger$Outside the SNR range of the training data.}}}}")
         else:
             cap = f"\\caption{{\\rev{{As Table~\\ref{{tab:supp_uq{lab}}}, {gtxt}.}}}}"
         out.append(cap)

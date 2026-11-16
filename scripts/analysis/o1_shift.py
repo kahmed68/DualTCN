@@ -39,6 +39,7 @@ from config_v6 import (RECEIVER_OFFSETS, Z_OBS, FREQS_V6, N_TIME, N_DEPTH, LATEN
                        TRAIN_SPLIT, VAL_SPLIT, DATA_PATH_V6, D1_RANGE, D2_RANGE)
 
 dev = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+torch.backends.cudnn.allow_tf32 = False; torch.backends.cuda.matmul.allow_tf32 = False   # 11-16: TF32 convs on A40 shifted d2 R2 by up to 0.01
 os.makedirs(a.out, exist_ok=True); t0 = time.time()
 LO, HI = BOUNDS[:, 0].double().numpy(), BOUNDS[:, 1].double().numpy()
 rng = np.random.default_rng(a.seed)

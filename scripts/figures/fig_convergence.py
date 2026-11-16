@@ -7,15 +7,21 @@ import numpy as np, matplotlib
 matplotlib.use('Agg'); import matplotlib.pyplot as plt
 HERE = os.path.dirname(os.path.abspath(__file__)); plt.style.use(os.path.join(HERE, 'dualtcn.mplstyle'))
 C1 = os.environ.get('DUALTCN_RUNS', '/work/hdd/bgte/kahmed2/DualTCN_runs') + '/analysis/c1'
-RUNS = [('full_n200_rn', r'(a) Clean data, $\lambda=10^{-6}$'), ('full_n200_rn_snr40', r'(b) 40 dB, $\lambda=10^{-6}$'),
-        ('full_n200_rn_snr40_reg', r'(c) 40 dB, $\lambda=10^{-3}$')]
+# 11-16 (Option 1): LM/L-BFGS-B from the full_* runs (independent of the network); WS rows and the DualTCN objective
+# from the noprof_* runs (main network rn_noprof_s1). Same 200 samples (idx checked).
+RUNS = [('full_n200_rn', 'noprof_n200_rn', r'(a) Clean data, $\beta=10^{-6}$'),
+        ('full_n200_rn_snr40', 'noprof_n200_rn_snr40', r'(b) 40 dB, $\beta=10^{-6}$'),
+        ('full_n200_rn_snr40_reg', 'noprof_n200_rn_snr40_reg', r'(c) 40 dB, $\beta=10^{-3}$')]
 LAB = {'LM': 'LM', 'LBFGSB': 'L-BFGS-B', 'WS-LM': 'WS-LM', 'WS-LBFGSB': 'WS-L-BFGS-B'}
 STY = {'LM': ('C0', '-'), 'LBFGSB': ('C1', '-'), 'WS-LM': ('C0', '--'), 'WS-LBFGSB': ('C1', '--')}
 out = sys.argv[1]
 fig, axs = plt.subplots(1, 3, figsize=(7.2, 2.5), sharey=False)
 stats = {}
-for ax, (run, title) in zip(axs, RUNS):
-    res = json.load(open(f'{C1}/{run}/c1_per_sample.json'))['results']
+for ax, (run_old, run, title) in zip(axs, RUNS):
+    Jo = json.load(open(f'{C1}/{run_old}/c1_per_sample.json')); Jn = json.load(open(f'{C1}/{run}/c1_per_sample.json'))
+    assert Jo['idx'] == Jn['idx']
+    res = [{**{m: ro[m] for m in ('LM', 'LBFGSB') if m in ro}, **{m: rn[m] for m in ('WS-LM', 'WS-LBFGSB', 'DualTCN') if m in rn}}
+           for ro, rn in zip(Jo['results'], Jn['results'])]
     methods = [m for m in LAB if m in res[0] and res[0][m].get('hist')]
     for m in methods:
         H = [np.minimum.accumulate(np.asarray(r[m]['hist'], float)) for r in res if r.get(m, {}).get('hist')]
@@ -24,7 +30,8 @@ for ax, (run, title) in zip(axs, RUNS):
         med, q1, q3 = np.median(A, 0), np.percentile(A, 25, 0), np.percentile(A, 75, 0)
         x = np.arange(1, n + 1); c, ls = STY[m]
         ax.plot(x, med, color=c, ls=ls, label=LAB[m]); ax.fill_between(x, q1, q3, color=c, alpha=0.12, lw=0)
-        stats[(run, m)] = (len(H), n, float(med[-1]))
+        e1 = [int(np.argmax(h <= h[-1] * 1.01)) + 1 for h in H]
+        stats[(run, m)] = (len(H), n, float(med[-1])); print(run, m, 'median evals to within 1% of final:', np.median(e1))
     dt = [r['DualTCN']['obj'] for r in res[:len(H)] if 'DualTCN' in r and r['DualTCN'].get('obj') is not None]
     if dt:
         ax.axhline(np.median(dt), color='0.3', lw=1.0, ls=':', label='DualTCN')

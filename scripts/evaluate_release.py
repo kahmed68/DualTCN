@@ -24,6 +24,8 @@ import sys
 
 import numpy as np
 import torch
+torch.backends.cudnn.allow_tf32 = False  # exact FP32 (TF32 convolutions change R2 by up to 0.01 on some GPUs)
+torch.backends.cuda.matmul.allow_tf32 = False
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
 
@@ -40,9 +42,10 @@ CONDITIONS = [
     ("rn_base", "Supervised, noise on raw transients"),
     ("rn_mis", "Forward-consistent, noise on raw transients"),
     ("noprof", "Supervised, no profile loss (decoder ablation)"),
-    ("rn_noprof", "Supervised, raw transients, no profile loss"),
+    ("rn_noprof", "Supervised, raw transients, no profile loss (main network)"),
     ("rn_misnp", "Forward-consistent, raw transients, no profile loss"),
-    ("rn_nolate", "Supervised, raw transients, no late branch"),
+    ("rn_nolate", "Supervised, raw transients, profile loss, no late branch"),
+    ("rn_nolatenp", "Supervised, raw transients, no profile loss, no late branch"),
 ]
 KEYS = ["r2_s1", "r2_s2", "r2_d1", "r2_d2", "r2_mean", "trace_rmse", "logamp_rmse"]
 
