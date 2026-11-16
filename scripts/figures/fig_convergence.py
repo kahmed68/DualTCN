@@ -6,7 +6,7 @@ import json, os, sys
 import numpy as np, matplotlib
 matplotlib.use('Agg'); import matplotlib.pyplot as plt
 HERE = os.path.dirname(os.path.abspath(__file__)); plt.style.use(os.path.join(HERE, 'dualtcn.mplstyle'))
-C1 = '/work/hdd/bgte/kahmed2/DualTCN_runs/analysis/c1'
+C1 = os.environ.get('DUALTCN_RUNS', '/work/hdd/bgte/kahmed2/DualTCN_runs') + '/analysis/c1'
 RUNS = [('full_n200_rn', r'(a) Clean data, $\lambda=10^{-6}$'), ('full_n200_rn_snr40', r'(b) 40 dB, $\lambda=10^{-6}$'),
         ('full_n200_rn_snr40_reg', r'(c) 40 dB, $\lambda=10^{-3}$')]
 LAB = {'LM': 'LM', 'LBFGSB': 'L-BFGS-B', 'WS-LM': 'WS-LM', 'WS-LBFGSB': 'WS-L-BFGS-B'}

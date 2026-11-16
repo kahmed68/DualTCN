@@ -1,9 +1,10 @@
 """Timing of the differentiable forward operator (Introduction, R1.14), 2026-11-15.
 Same call as train_v6.misfit_terms: freq_response + time_features in float64 on the GPU.
 Reports median wall time over 50 repeats (5 warm-up) for forward only and forward+backward, batch 256 and 64."""
+import os
 import json, sys, time
 import numpy as np, torch
-sys.path.insert(0, '/u/kahmed2/Khaled-projects/DualTCN/src')
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'src'))
 import forward_torch as ft
 import train_v6 as T
 dev = 'cuda'
@@ -28,4 +29,4 @@ for B in (256, 64):
             if rep >= 5: ts.append(dt * 1e3)
         res[f'B{B}_{mode}_ms_median'] = float(np.median(ts)); res[f'B{B}_{mode}_ms_p90'] = float(np.percentile(ts, 90))
         print(B, mode, 'median %.1f ms  p90 %.1f ms' % (np.median(ts), np.percentile(ts, 90)), flush=True)
-json.dump(res, open('/work/hdd/bgte/kahmed2/DualTCN_runs/analysis/time_forward_torch.json', 'w'), indent=1)
+json.dump(res, open(os.environ.get('DUALTCN_RUNS', '/work/hdd/bgte/kahmed2/DualTCN_runs') + '/analysis/time_forward_torch.json', 'w'), indent=1)

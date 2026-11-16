@@ -11,7 +11,7 @@ import torch
 import forward_torch as ft
 from config_v6 import RECEIVER_OFFSETS, Z_OBS, FREQS_V6, N_TIME, SIGMA1_LOG_RANGE, SIGMA2_LOG_RANGE, D1_RANGE, D2_RANGE
 torch.set_num_threads(8)
-O = '/work/hdd/bgte/kahmed2/DualTCN_runs/analysis/j1'
+O = os.environ.get('DUALTCN_RUNS', '/work/hdd/bgte/kahmed2/DualTCN_runs') + '/analysis/j1'
 z = np.load(os.path.join(O, 'jacobians.npz')); th = z['theta']; J = z['J'].astype(np.float64)
 LO = np.array([SIGMA1_LOG_RANGE[0], SIGMA2_LOG_RANGE[0], np.log10(D1_RANGE[0]), np.log10(D2_RANGE[0])])
 HI = np.array([SIGMA1_LOG_RANGE[1], SIGMA2_LOG_RANGE[1], np.log10(D1_RANGE[1]), np.log10(D2_RANGE[1])])

@@ -22,4 +22,7 @@ FREQS_V6 = np.arange(N_TIME // 2 + 1) * DF  # 65 bins, 0 .. 2.0 Hz
 FREQS_V6[0] = F_DC
 N_FREQ_V6 = FREQS_V6.size
 
-DATA_PATH_V6 = "/work/hdd/bgte/kahmed2/DualTCN_data/mcsem_dataset_v6.npz"
+import os as _os
+# Dataset path: environment variable DUALTCN_DATA, else our cluster path, else data/ in the repository.
+_CLUSTER = "/work/hdd/bgte/kahmed2/DualTCN_data/mcsem_dataset_v6.npz"
+DATA_PATH_V6 = _os.environ.get("DUALTCN_DATA") or (_CLUSTER if _os.path.exists(_CLUSTER) else "data/mcsem_dataset_v6.npz")

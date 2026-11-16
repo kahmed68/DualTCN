@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 plt.style.use(os.path.join(HERE, 'dualtcn.mplstyle'))
-A = '/work/hdd/bgte/kahmed2/DualTCN_runs/analysis/'
+A = os.environ.get('DUALTCN_RUNS', '/work/hdd/bgte/kahmed2/DualTCN_runs') + '/analysis/'
 OUT = sys.argv[1]
 orig = json.load(open(A + 'n1_u1/n1_u1_base.json'))
 raw = json.load(open(A + 'n1_u1/n1_u1_rn_base.json'))

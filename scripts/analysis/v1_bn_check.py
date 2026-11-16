@@ -15,7 +15,7 @@ import numpy as np
 
 ap = argparse.ArgumentParser()
 ap.add_argument('--v1', default='/work/hdd/bgte/kahmed2/DualTCN_v1_archive/AppliedMath/mcsem_inversion')
-ap.add_argument('--out', default='/work/hdd/bgte/kahmed2/DualTCN_runs/analysis/v1_bn_check')
+ap.add_argument('--out', default=os.environ.get('DUALTCN_RUNS', '/work/hdd/bgte/kahmed2/DualTCN_runs') + '/analysis/v1_bn_check')
 ap.add_argument('--data', default='')
 ap.add_argument('--n-test', type=int, default=0, help='0 = full test split (smoke: small)')
 ap.add_argument('--threads', type=int, default=32)

@@ -20,9 +20,9 @@ import numpy as np
 
 ap = argparse.ArgumentParser()
 ap.add_argument('--runs', default='base_s1,base_s2,base_s3')
-ap.add_argument('--root', default='/work/hdd/bgte/kahmed2/DualTCN_runs/e1')
+ap.add_argument('--root', default=os.environ.get('DUALTCN_RUNS', '/work/hdd/bgte/kahmed2/DualTCN_runs') + '/e1')
 ap.add_argument('--arch', default='dualtcn')
-ap.add_argument('--out', default='/work/hdd/bgte/kahmed2/DualTCN_runs/analysis/n1_u1')
+ap.add_argument('--out', default=os.environ.get('DUALTCN_RUNS', '/work/hdd/bgte/kahmed2/DualTCN_runs') + '/analysis/n1_u1')
 ap.add_argument('--tag', default='base')
 ap.add_argument('--n-cal', type=int, default=50000)
 ap.add_argument('--n-test', type=int, default=0, help='0 = full test split')

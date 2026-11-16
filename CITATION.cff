@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite the paper and this archived version."
 title: "DualTCN: forward-consistent deep-learning inversion of time-domain marine CSEM data (code, trained networks, sample data)"
-version: "1.1-r1"
+version: "1.2-r1"
 license: MIT
 repository-code: "https://github.com/Kahmed68/DualTCN"
 authors:

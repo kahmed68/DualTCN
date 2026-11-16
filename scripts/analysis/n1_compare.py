@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Compare N1 per-run R2 (and 95% conformal_clean PICP) of a raw-noise run against the base arm (11-14)."""
+import os
 import json, sys
-D = '/work/hdd/bgte/kahmed2/DualTCN_runs/analysis/n1_u1/'
+D = os.environ.get('DUALTCN_RUNS', '/work/hdd/bgte/kahmed2/DualTCN_runs') + '/analysis/n1_u1/'
 b = json.load(open(D + 'n1_u1_base.json'))
 r = json.load(open(D + f'n1_u1_{sys.argv[1] if len(sys.argv) > 1 else "rn_base_s1"}.json'))
 names = b['order']
