@@ -19,3 +19,4 @@ axes.prop_cycle: cycler('color', ['0072B2', 'D55E00', '009E73', 'CC79A7', 'E69F0
 savefig.dpi: 300
 savefig.bbox: tight
 figure.dpi: 150
+mathtext.fontset: dejavuserif

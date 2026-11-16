@@ -47,7 +47,7 @@ for col, (k, i) in enumerate(zip(names, idx)):
             ax.set_title(KEYS[k]); ax.set_xlabel('SNR (dB)')
         else:
             ax.set_xlabel('Receiver gain error (%)')
-        ax.set_xticks(x); ax.set_xticklabels(xl); ax.set_ylim(YMIN - 0.1, 1.08); ax.axhline(0, color='0.6', lw=0.6)
+        ax.set_xticks(x); ax.set_xticklabels(xl); ax.set_ylim(YMIN - 0.25, 1.08); ax.axhline(0, color='0.6', lw=0.6)
 axs[0, 0].set_ylabel('$R^2$'); axs[1, 0].set_ylabel('$R^2$')
 h, l = axs[0, 0].get_legend_handles_labels()
 fig.legend(h, l, loc='lower center', ncol=3, bbox_to_anchor=(0.5, -0.01))

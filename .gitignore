@@ -41,3 +41,6 @@ paper_revision/
 /*.pdf
 scripts/slurm/
 scripts/figures/fig_schematics_v1_flat_arch.py
+
+# results written by the analysis scripts (regenerate with the commands in README.md)
+/analysis/

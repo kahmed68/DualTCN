@@ -12,7 +12,10 @@ U1: prediction intervals at 68% and 95% for each parameter and condition:
   (b) MC dropout (first run, T passes, dropout on, BatchNorm in eval), Gaussian;
   (c) split conformal on the ensemble mean, calibrated on CLEAN validation data (what a user would do);
   (d) normalised conformal (score |r|/sd_ens), calibrated on clean validation data;
-  (e) split conformal calibrated on validation data with the SAME condition (oracle on the noise level).
+  (e) split conformal calibrated on validation data with the SAME condition (oracle on the noise level);
+  (f) [11-15, D5] split conformal calibrated on validation data perturbed with the TRAINING noise distribution
+      (train_v6.raw_perturb: SNR 60-20 dB log-uniform + gain 0.1-5%), i.e. no knowledge of the survey noise;
+  (g) [11-15, D5] the same, normalised by the seed spread.
 All in normalised log10 parameter space [0,1]. Reports R2 per run (mean +- sd), PICP and mean width (MPIW).
 """
 import argparse, json, os, sys, time
@@ -32,7 +35,7 @@ ap.add_argument('--seed', type=int, default=777)
 a = ap.parse_args()
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'src'))
 import torch
-from train_v6 import load, ARCHS, NAMES
+from train_v6 import load, ARCHS, NAMES, raw_perturb
 from config_v6 import IN_CHANNELS, N_TIME, N_DEPTH, LATENT_DIM, DROPOUT, TRAIN_SPLIT, VAL_SPLIT, DATA_PATH_V6
 
 dev = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -53,7 +56,10 @@ COND = [('clean', {}), ('snr40', dict(snr=40)), ('snr30', dict(snr=30)), ('snr20
 def perturb(idx, c, g):
     """Return (B,8,T) network input for samples idx under condition c (fixed generator g)."""
     En, la = E[idx], L[idx]
-    if c.get('orig'):
+    if c.get('trainmix'):
+        En, la = raw_perturb(En, la, g)
+        En = En.float(); la = la.float()
+    elif c.get('orig'):
         std = 10 ** (torch.rand(En.shape[0], En.shape[1], 1, device=dev, generator=g) * 2 - 3)
         En = En + std * torch.randn(En.shape, device=dev, generator=g)
     elif c:
@@ -115,6 +121,8 @@ Z = {0.68: 0.9945, 0.95: 1.9600}
 y_cal = Pn[cal].cpu().numpy(); y_te = Pn[te].cpu().numpy()
 Pc = predict(cal, {}, a.seed)                                   # clean calibration predictions
 mu_c, sd_c = Pc.mean(0), Pc.std(0, ddof=1) + 1e-6
+Pm = predict(cal, {'trainmix': True}, a.seed + 3000)            # calibration with the training noise mixture (D5)
+mu_m, sd_m = Pm.mean(0), Pm.std(0, ddof=1) + 1e-6
 res = dict(runs=runs, arch=a.arch, n_cal=len(cal), n_test=len(te), mc=a.mc, order=NAMES, space='normalised log10 params',
            conditions={})
 for ci, (name, c) in enumerate(COND):
@@ -132,6 +140,8 @@ for ci, (name, c) in enumerate(COND):
         q = cq(np.abs(y_cal - mu_c), lev); u['conformal_clean'] = cov(y_te, mu - q, mu + q)
         qn = cq(np.abs(y_cal - mu_c) / sd_c, lev); u['conformal_norm_clean'] = cov(y_te, mu - qn * sd, mu + qn * sd)
         qo = cq(np.abs(y_cal - Pv.mean(0)), lev); u['conformal_same_condition'] = cov(y_te, mu - qo, mu + qo)
+        qm = cq(np.abs(y_cal - mu_m), lev); u['conformal_trainmix'] = cov(y_te, mu - qm, mu + qm)
+        qmn = cq(np.abs(y_cal - mu_m) / sd_m, lev); u['conformal_norm_trainmix'] = cov(y_te, mu - qmn * sd, mu + qmn * sd)
         out['uq'][str(lev)] = u
     res['conditions'][name] = out
     print(f"{name:14s} R2 mean {np.round(out['r2_mean'],3)} | 95% PICP conf_clean {out['uq']['0.95']['conformal_clean']['picp']}"

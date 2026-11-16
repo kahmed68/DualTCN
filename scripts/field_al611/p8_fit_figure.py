@@ -23,7 +23,7 @@ fig, ax = plt.subplots(1, 4, figsize=(7.2, 2.4))
 ax[0].plot(txn, rms, 'o-', ms=2.5, lw=0.9, color='k'); ax[0].axhline(1, ls='--', color='gray')
 for j in pick: ax[0].plot(txn[j], rms[j], 'o', ms=7, mfc='none', color='C1')
 ax[0].set_xlabel('Transmitter position'); ax[0].set_ylabel('Error-normalised RMS misfit'); ax[0].set_title('(a) Profile 8, 53 soundings')
-ax[0].set_ylabel('Normalised RMS misfit')
+ax[0].set_ylabel('Normalized RMS misfit')
 for k, j in enumerate(pick):
     r = R[j]; itx = r['tx'] - 1; a = ax[k + 1]
     rx = [tuple(v) for v in r['rx']]

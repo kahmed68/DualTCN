@@ -31,7 +31,7 @@ import train_v6 as tv  # noqa: E402
 from config_v6 import (IN_CHANNELS, N_TIME, N_DEPTH, LATENT_DIM, DROPOUT, PROFILE_WEIGHT,  # noqa: E402
                        PARAM_WEIGHT, PARAM_WEIGHTS, TRAIN_SPLIT, VAL_SPLIT)
 from config_p9d import DSF_AUX_WEIGHT  # noqa: E402
-from model_p9d import LateTimePCRN  # noqa: E402
+from model_p9d import LateTimePCRN  # noqa: E402,F401  (default architecture)
 from train_utils import WeightedPCRNLoss  # noqa: E402
 
 CONDITIONS = [
@@ -40,6 +40,9 @@ CONDITIONS = [
     ("rn_base", "Supervised, noise on raw transients"),
     ("rn_mis", "Forward-consistent, noise on raw transients"),
     ("noprof", "Supervised, no profile loss (decoder ablation)"),
+    ("rn_noprof", "Supervised, raw transients, no profile loss"),
+    ("rn_misnp", "Forward-consistent, raw transients, no profile loss"),
+    ("rn_nolate", "Supervised, raw transients, no late branch"),
 ]
 KEYS = ["r2_s1", "r2_s2", "r2_d1", "r2_d2", "r2_mean", "trace_rmse", "logamp_rmse"]
 
@@ -73,8 +76,9 @@ def main():
     for run in runs:
         folder = os.path.join(a.weights, run)
         args = json.load(open(os.path.join(folder, "args.json")))
-        model = LateTimePCRN(in_ch=IN_CHANNELS, in_len=N_TIME, out_len=N_DEPTH,
-                             latent_dim=LATENT_DIM, dropout=DROPOUT).to(dev)
+        arch = tv.ARCHS[args.get("arch", "dualtcn")]          # rn_nolate_s*: dualtcn_nolate
+        model = arch(in_ch=IN_CHANNELS, in_len=N_TIME, out_len=N_DEPTH,
+                     latent_dim=LATENT_DIM, dropout=DROPOUT).to(dev)
         model.load_state_dict(torch.load(os.path.join(folder, "best.pt"), map_location=dev, weights_only=True))
         crit = WeightedPCRNLoss(profile_w=args.get("profile_w", PROFILE_WEIGHT), param_w=PARAM_WEIGHT,
                                 param_weights=PARAM_WEIGHTS)

@@ -99,16 +99,22 @@ def fig2():
     EDGE = '0.45'
     # ---------------- input
     panel(ax, 0.3, 6.2, 3.4, 15.6, 'Input', '0.96', '0.6', '0.25')
-    t = np.linspace(0, 1, 120)
+    # real normalized traces of the generator (sample dataset of the release): a peak in the first
+    # sample and the ringing of the 2 Hz band limit (Supplementary Section S12.8)
+    t = np.arange(128) / 127.0
+    smp = os.environ.get('DUALTCN_SAMPLE', 'data/sample_v6_5000.npz' if os.path.exists('data/sample_v6_5000.npz')
+                         else '/work/hdd/bgte/kahmed2/DualTCN_release_r1/upload/sample_v6_5000.npz')
+    E = np.load(smp)['E_multi']
+    traces = [E[0, 0], E[0, 1], E[0, 2], E[1, 0], E[1, 3]]
     for k, y in enumerate([13.6, 12.4, 11.2, 8.9, 7.7]):
-        w = 0.32 * np.exp(-3 * t) * np.sin(2 * np.pi * (2.5 + 0.6 * k) * t + k) + 0.06 * np.sin(14 * np.pi * t)
-        ax.plot(0.75 + 2.2 * t, y + w, color='#3B7DC4', lw=0.9)
+        w = traces[k] / traces[k][np.argmax(np.abs(traces[k]))]
+        ax.plot(0.75 + 2.2 * t, y - 0.3 + 0.75 * w, color='#3B7DC4', lw=0.8)
     ax.text(1.85, 10.1, '$\\vdots$', ha='center', va='center', fontsize=11, color='#3B7DC4')
     ax.text(1.85, 5.2, '$(B, 8, 128)$\n4 receivers $\\times$\n2 channels', ha='center', va='center', fontsize=7.5, color='0.25')
     # ---------------- encoder panel
     panel(ax, 3.9, 1.9, 19.2, 19.6, 'DualTCN Encoder', '#F2F7FC', '#9DB9D8', '#1F4E79', fs=10)
     # full-time branch
-    panel(ax, 4.2, 12.6, 18.9, 18.3, 'Full-Time Branch (all 128 samples)', '#F7FAFE', '#AFC6E0', '#1F4E79', fs=7.5,
+    panel(ax, 4.2, 12.6, 18.9, 18.3, 'Full-Window Branch (all 128 samples)', '#F7FAFE', '#AFC6E0', '#1F4E79', fs=7.5,
           dashed=True, title_y=17.75)
     box(ax, 5.35, 14.9, 1.75, 2.9, '$1{\\times}1$ conv\n$8 \\to 64$', '0.94', fs=6.0)
     for i, d in enumerate([1, 2, 4, 8, 16, 32]):
@@ -119,7 +125,7 @@ def fig2():
         arrow(ax, (7.75 + 1.38 * i, 14.9), (7.93 + 1.38 * i, 14.9))
     arrow(ax, (14.95, 14.9), (16.45, 14.9))
     # late-time branch
-    panel(ax, 4.2, 7.0, 18.9, 12.2, 'Late-Time Branch (last 64 samples)', '#FAF8FD', '#C3B5DE', '#4B3A7A', fs=7.5,
+    panel(ax, 4.2, 7.0, 18.9, 12.2, 'Late-Window Branch (last 64 samples)', '#FAF8FD', '#C3B5DE', '#4B3A7A', fs=7.5,
           dashed=True, title_y=11.65)
     box(ax, 5.35, 9.2, 1.75, 2.9, 'Slice\n\n$t$ = 65\nto 128', '0.94', fs=6.5)
     box(ax, 7.4, 9.2, 1.75, 2.9, '$1{\\times}1$ conv\n$8 \\to 32$', '0.94', fs=6.0)

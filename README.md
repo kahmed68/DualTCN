@@ -62,7 +62,10 @@ PYTHONPATH=src python src/train_v6.py --data sample_v6_5000.npz --out runs/quick
      --val-misfit-n 20000 --raw-noise
    ```
 
-   The decoder ablation of Section 3.1 adds `--profile-w 0` to the supervised command.
+   The ablations add options to these commands: `--profile-w 0` removes the profile loss (Section 3.1;
+   runs `noprof_s*` with the original noise, `rn_noprof_s*` and `rn_misnp_s*` with `--raw-noise`), and
+   `--arch dualtcn_nolate` removes the late-window branch (Section 2.4; runs `rn_nolate_s*`, supervised,
+   `--raw-noise`).
    Each run writes `best.pt`, `log.csv`, and `test_metrics.json` to its output folder.
 
 3. Evaluate the released networks (or your own runs) on the test split and print Table 3:
@@ -90,8 +93,10 @@ export PYTHONPATH=src DUALTCN_DATA=data/mcsem_dataset_v6.npz DUALTCN_RUNS=result
 | Sect. 3.2, sensitivity | `python scripts/analysis/j1_sensitivity.py --n 2000 --n-check 10` | `j1/` |
 | Sect. 3.2 and 3.9, longer offsets | `python scripts/analysis/j1_offsets.py` (after `j1_sensitivity.py`) | `j1_offsets/` |
 | Fig. 3, linearized estimate | `python scripts/analysis/j1_snr.py` (after `j1_sensitivity.py`) | `j1/j1_snr.json` |
-| Fig. 3, Table 4, Supp. Table S13 (Sects. 3.3, 3.4) | `python scripts/analysis/n1_u1_noise_uq.py --root weights --runs base_s1,base_s2,base_s3 --tag base` and the same with `--runs rn_base_s1,rn_base_s2,rn_base_s3 --tag rn_base` | `n1_u1/` |
-| Supp. Table S13 (text table) | `python scripts/analysis/n1_compare.py rn_base > results/analysis/n1_u1/n1_compare_rn_base_3s.txt` | `n1_u1/` |
+| Fig. 3, Table 4, Supp. Tables S14 to S18 (Sects. 3.3, 3.4) | `python scripts/analysis/n1_u1_noise_uq.py --root weights --runs base_s1,base_s2,base_s3 --tag base` and the same with `--runs rn_base_s1,rn_base_s2,rn_base_s3 --tag rn_base` | `n1_u1/` |
+| Sect. 3.3, forward-consistent network under noise | the same with `--runs rn_mis_s1,rn_mis_s2,rn_mis_s3 --tag rn_mis` | `n1_u1/` |
+| Supp. Tables S15 to S18 (LaTeX) | `python scripts/figures/tab_supp_uq.py results/analysis/n1_u1/n1_u1_rn_base.json` | printed |
+| Supp. Table S14 (text table) | `python scripts/analysis/n1_compare.py rn_base > results/analysis/n1_u1/n1_compare_rn_base_3s.txt` | `n1_u1/` |
 | Fig. 3 (plot) | `python scripts/figures/fig_noise.py figures/` | `figures/fig3_noise.png` |
 | Sect. 3.5, shifted distributions | `python scripts/analysis/o1_shift.py --root weights --runs rn_base_s1,rn_base_s2,rn_base_s3,rn_mis_s1 --tag rn` | `o1/` |
 | Sect. 3.6, three-layer models | `python scripts/analysis/o2_threelayer.py --root weights --runs rn_base_s1,rn_base_s2,rn_base_s3,rn_mis_s1 --n 5000 --tag rn` | `o2/` |
@@ -101,7 +106,9 @@ export PYTHONPATH=src DUALTCN_DATA=data/mcsem_dataset_v6.npz DUALTCN_RUNS=result
 | Table 6, inference time | printed by `c1_conventional.py` (`dualtcn_cpu_ms_per_sample` in `c1_summary.json`) | `c1/` |
 | Table 6, training time | column `sec_train` of `log.csv` written by `src/train_v6.py` | run folder |
 | Introduction, operator timing | `python scripts/analysis/time_forward_torch.py` (GPU) | `time_forward_torch.json` |
-| Figs. 1 and 2 | `python scripts/figures/fig_schematics.py figures/` | `figures/` |
+| Figs. 1 and 2 | `python scripts/figures/fig_schematics.py figures/` (Fig. 2 draws traces of `data/sample_v6_5000.npz`) | `figures/` |
+| Sect. 2.2, Supp. Sect. S12.8 and Table S9 (time content of the traces) | `python scripts/analysis/n1_time_axis.py` (CPU, a few minutes) | `n1_time_axis.json` |
+| Sect. 2.2, Supp. Sect. S20 and Table S19 (time-gated step-off records) | `python scripts/analysis/td_conversion.py --root weights` (GPU recommended) | `td_conversion/` |
 | Supp. Fig. S5 (convergence) | `python scripts/figures/fig_convergence.py figures/` (after the three Table 5 runs) | `figures/` |
 | Supp. Sect. S12.7, operator validation | `python src/validate_forward_torch.py` and `python src/compare_v4_v6.py` | `results/step1_forward_torch/` |
 | Supp. Sect. S13.4, Fig. S3 (AL611 field data) | `scripts/field_al611/g3_validate.py`, `g2_lm_torch.py`, `p8_fit_figure.py` (download the AL611 files from PANGAEA first, doi:10.1594/PANGAEA.989421) | `al611/` |
@@ -116,7 +123,7 @@ Git LFS (`git lfs pull`) to download them.
 ## Trained networks
 
 The release assets contain `weights/<condition>_s<seed>/best.pt` (PyTorch state dict of
-`src/model_p9d.py:LateTimePCRN`, 379,370 parameters), with `args.json` and `test_metrics.json` of each run:
+`src/model_p9d.py:LateTimePCRN`, 379,370 parameters; `rn_nolate_s*`: `src/model_ablation.py:NoLatePCRN`), with `args.json` and `test_metrics.json` of each run:
 
 | Folder | Training noise | Loss |
 |---|---|---|
@@ -125,13 +132,16 @@ The release assets contain `weights/<condition>_s<seed>/best.pt` (PyTorch state 
 | `rn_base_s*` | raw transients | supervised |
 | `rn_mis_s*` | raw transients | forward-consistent |
 | `noprof_s*` | normalized traces only | supervised, no profile loss (decoder ablation) |
+| `rn_noprof_s*` | raw transients | supervised, no profile loss |
+| `rn_misnp_s*` | raw transients | forward-consistent, no profile loss |
+| `rn_nolate_s*` | raw transients | supervised, without the late-window branch (`--arch dualtcn_nolate`) |
 
 The saved batch-normalization statistics are the recalibrated ones, so the networks can be evaluated directly.
 `SHA256SUMS` lists the checksums of all release files.
 
 ## Citation
 
-Please cite the paper and release v1.2-r1 of this repository (see `CITATION.cff`).
+Please cite the paper and release v1.3-r1 of this repository (see `CITATION.cff`).
 
 ## License
 
