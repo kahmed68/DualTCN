@@ -33,7 +33,7 @@ ap.add_argument('--gates', type=int, default=40)
 ap.add_argument('--tmin', type=float, default=1e-4)
 ap.add_argument('--tmax', type=float, default=1.0)
 ap.add_argument('--noise', default='0.01,0.02,0.05')
-ap.add_argument('--runs', default='rn_base_s1,rn_base_s2,rn_base_s3')
+ap.add_argument('--runs', default='rn_noprof_s1,rn_noprof_s2,rn_noprof_s3')  # main network
 ap.add_argument('--root', default=os.environ.get('DUALTCN_RUNS', '/work/hdd/bgte/kahmed2/DualTCN_runs') + '/e1')
 ap.add_argument('--out', default=os.environ.get('DUALTCN_RUNS', '/work/hdd/bgte/kahmed2/DualTCN_runs') + '/analysis/td_conversion')
 ap.add_argument('--ppd', type=int, default=20)

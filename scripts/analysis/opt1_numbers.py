@@ -2,7 +2,7 @@
 Usage: python3 scripts/analysis/opt1_numbers.py > paper_revision/envsoft_r1/framing_review/NUMBERS_OPT1.md
 A number quoted twice is computed once: copy from this output only."""
 import json, csv, statistics as st, os
-R = '/work/hdd/bgte/kahmed2/DualTCN_runs'; E = R + '/e1'; A = R + '/analysis'
+R = os.environ.get('DUALTCN_RUNS', '/work/hdd/bgte/kahmed2/DualTCN_runs'); E = R + '/e1'; A = R + '/analysis'
 P = ['s1', 's2', 'd1', 'd2']; NM = ['sigma1', 'sigma2', 'd1', 'd2']
 J = lambda p: json.load(open(p))
 f3 = lambda x: f'{x:.3f}'

@@ -25,7 +25,7 @@ ap.add_argument('--n', type=int, default=500)
 ap.add_argument('--seed', type=int, default=2026)
 ap.add_argument('--starts', type=int, default=8)
 ap.add_argument('--lam', type=float, default=1e-6)
-ap.add_argument('--net-run', default=os.environ.get('DUALTCN_RUNS', '/work/hdd/bgte/kahmed2/DualTCN_runs') + '/e1/base_s1')
+ap.add_argument('--net-run', default=os.environ.get('DUALTCN_RUNS', '/work/hdd/bgte/kahmed2/DualTCN_runs') + '/e1/rn_noprof_s1')  # main network
 ap.add_argument('--workers', type=int, default=32)
 ap.add_argument('--n-hist', type=int, default=20)
 ap.add_argument('--snr', type=float, default=0.0, help='11-14 (R2.7): white noise on the raw transient at this peak SNR in dB (0 = clean), as in N1')

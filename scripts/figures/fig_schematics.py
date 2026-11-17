@@ -205,7 +205,7 @@ def fig2():
     # ---------------- bottom bar
     ax.add_patch(FancyBboxPatch((3.0, -4.55), 25.0, 1.15, boxstyle='round,pad=0.02,rounding_size=0.3',
                                 fc='#F4F8FC', ec='#C9D9EA', lw=0.8))
-    ax.text(15.5, -3.98, 'DualTCN   |   379,370 parameters   |   1.7 ms per sample on one CPU core (batched inference)',
+    ax.text(15.5, -3.98, 'DualTCN   |   379,370 parameters   |   1.1 ms per sample on one CPU core (batched inference)',
             ha='center', va='center', fontsize=8, color='0.2')
     fig.savefig(os.path.join(OUT, 'fig2_architecture.png')); plt.close(fig)
 
